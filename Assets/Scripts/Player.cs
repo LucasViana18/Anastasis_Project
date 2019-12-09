@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Instance variables
+        //Character movement
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private LayerMask checkMask;
@@ -13,27 +14,29 @@ public class Player : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
+        //Character mechanics
+    private LampLight lampLight;
+    private IntangibleForm intangibleForm;
+        //Input variables
+    private float moveX;
+    private float moveZ;
+    private Vector3 move;
+
+
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        lampLight = GetComponent<LampLight>();
+        intangibleForm = GetComponent<IntangibleForm>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        // Local variables
-        float moveX;
-        float moveZ;
-        Vector3 move;
-
         isGrounded = Physics.CheckSphere(checkBody.position, checkRadius, checkMask);
 
         if (isGrounded && velocity.y < 0)
             velocity.y = -2f;
-
-        // Movement input
-        moveX = Input.GetAxis("Horizontal");
-        moveZ = Input.GetAxis("Vertical");
 
         // Calculation of movement
         move = transform.right * moveX + transform.forward * moveZ;
@@ -44,5 +47,19 @@ public class Player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void Update()
+    {
+        // Movement input
+        moveX = Input.GetAxis("Horizontal");
+        moveZ = Input.GetAxis("Vertical");
+
+        //Lamp Light input
+        if (Input.GetKeyDown(KeyCode.Q))
+            lampLight.ChangeLight();
+        //Intangible Form input
+        if (Input.GetKeyDown(KeyCode.E))
+            intangibleForm.ChangeForm();
     }
 }
