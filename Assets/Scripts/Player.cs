@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float checkRadius = 0.5f;
     [SerializeField] private Transform checkBody;
     [SerializeField] private float rayDistance;
+    [SerializeField] private Dialogue dialogue;
+
+    private float defaultRayDistance;
+
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
@@ -24,14 +28,17 @@ public class Player : MonoBehaviour
     private float moveZ;
     private Vector3 move;
 
-
-
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         lampLight = GetComponent<LampLight>();
         intangibleForm = GetComponent<IntangibleForm>();
         camera = GetComponentInChildren<Camera>().transform;
+    }
+
+    private void Start()
+    {
+        defaultRayDistance = rayDistance;
     }
 
     private void FixedUpdate()
@@ -44,11 +51,10 @@ public class Player : MonoBehaviour
         // Calculation of movement
         move = transform.right * moveX + transform.forward * moveZ;
 
-        // Action of movement to the character controller
-        //controller.Move(Vector3.ClampMagnitude(move, 1f) * moveSpeed * Time.deltaTime);
-
+        // Gravity
         velocity.y += gravity * Time.deltaTime;
 
+        // Action of movement to the character controller
         controller.Move(((Vector3.ClampMagnitude(move, 1f) * moveSpeed) + velocity) * Time.deltaTime);
     }
 
@@ -57,6 +63,9 @@ public class Player : MonoBehaviour
         // Movement input
         moveX = Input.GetAxis("Horizontal");
         moveZ = Input.GetAxis("Vertical");
+
+        if (!dialogue.isDialogue)
+            rayDistance = defaultRayDistance;
 
         //Lamp Light input
         if (Input.GetKeyDown(KeyCode.Q))
@@ -73,9 +82,12 @@ public class Player : MonoBehaviour
     {
         Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, rayDistance);
 
+        if (hit.collider == null) return;
+
         if (hit.collider.CompareTag("Talkable"))
         {
-
+            rayDistance = 0f;
+            dialogue.StartDialogue();
         }
     }
 }
