@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask checkMask;
     [SerializeField] private float checkRadius = 0.5f;
     [SerializeField] private Transform checkBody;
+    [SerializeField] private float rayDistance;
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
+    private Transform camera;
         //Character mechanics
     private LampLight lampLight;
     private IntangibleForm intangibleForm;
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
         controller = GetComponent<CharacterController>();
         lampLight = GetComponent<LampLight>();
         intangibleForm = GetComponent<IntangibleForm>();
+        camera = GetComponentInChildren<Camera>().transform;
     }
 
     private void FixedUpdate()
@@ -42,11 +45,11 @@ public class Player : MonoBehaviour
         move = transform.right * moveX + transform.forward * moveZ;
 
         // Action of movement to the character controller
-        controller.Move(Vector3.ClampMagnitude(move, 1f) * moveSpeed * Time.deltaTime);
+        //controller.Move(Vector3.ClampMagnitude(move, 1f) * moveSpeed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(((Vector3.ClampMagnitude(move, 1f) * moveSpeed) + velocity) * Time.deltaTime);
     }
 
     private void Update()
@@ -61,5 +64,18 @@ public class Player : MonoBehaviour
         //Intangible Form input
         if (Input.GetKeyDown(KeyCode.E))
             intangibleForm.ChangeForm();
+
+        if (Input.GetMouseButtonDown(0))
+            DoAction();
+    }
+
+    private void DoAction()
+    {
+        Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, rayDistance);
+
+        if (hit.collider.CompareTag("Talkable"))
+        {
+
+        }
     }
 }
