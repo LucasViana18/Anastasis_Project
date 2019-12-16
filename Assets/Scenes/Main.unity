@@ -5199,12 +5199,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878438292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -640, y: -356.3347, z: 0}
+  m_LocalScale: {x: 1.2749004, y: 1.2749004, z: 1.2749004}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1546160373}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &933829214
 GameObject:
@@ -15234,9 +15234,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 878438295}
   - {fileID: 2142726538}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15318,7 +15319,8 @@ MonoBehaviour:
     m_Bits: 256
   checkRadius: 0.5
   checkBody: {fileID: 1733668918}
-  rayDistance: 0
+  rayDistance: 4
+  dialogue: {fileID: 1966904265}
 --- !u!114 &1554554927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15399,7 +15401,7 @@ GameObject:
   - component: {fileID: 1624233978}
   - component: {fileID: 1624233977}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DialogText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15442,7 +15444,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15581,6 +15583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1966904264}
+  - component: {fileID: 1966904265}
   m_Layer: 0
   m_Name: DialogueSystem
   m_TagString: Untagged
@@ -15595,13 +15598,34 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966904263}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5710986, y: 8.36073, z: 1.2486619}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.571106, y: 8.360687, z: 1.2486619}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1966904265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966904263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a9b250d3b9d5f4da88b4d5c845a7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogPanel: {fileID: 2142726537}
+  dialogText: {fileID: 1624233977}
+  sentences:
+  - Oh hello there!
+  - How are you!
+  - You looking fine as fuck!
+  typingSpeed: 0.01
+  player: {fileID: 1554554926}
+  cameraMove: {fileID: 963194229}
 --- !u!1 &2130507586
 GameObject:
   m_ObjectHideFlags: 0
@@ -20442,12 +20466,12 @@ GameObject:
   - component: {fileID: 2142726540}
   - component: {fileID: 2142726539}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: DialogPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2142726538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20461,7 +20485,7 @@ RectTransform:
   m_Children:
   - {fileID: 1624233976}
   m_Father: {fileID: 1546160373}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
