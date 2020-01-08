@@ -51,14 +51,14 @@ public class LampLight : MonoBehaviour
         }
         else if (myLight.color != greenColor && obj.CompareTag("Interactable"))
         {
-            obj.gameObject.GetComponent<Item>().Glow(false);
+            obj?.gameObject?.GetComponent<Item>()?.Glow(false);
         }
     }
     private void OnTriggerExit(Collider obj)
     {
         if (obj.CompareTag("Interactable"))
         {
-            obj.gameObject.GetComponent<Item>().Glow(false);
+            obj?.gameObject?.GetComponent<Item>()?.Glow(false);
         }
     }
 }
