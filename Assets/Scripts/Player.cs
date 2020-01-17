@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
             intangibleForm.ChangeForm();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
             DoAction();
     }
 
