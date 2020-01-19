@@ -7,6 +7,7 @@ public class PlayerInteractions : MonoBehaviour
     //private const string    PICK_UP_MESSAGE             = "Pick up ";
     public int TryOrder { get; set; }
     public bool ConfirmAmulet { get; set; }
+    [SerializeField] private GameObject[] objects;
 
     public CanvasManager canvasManager;
 
@@ -53,7 +54,8 @@ public class PlayerInteractions : MonoBehaviour
 
         if (_currentInteractive.type == Interactive.InteractiveType.PICKABLE || 
             _currentInteractive.type == Interactive.InteractiveType.INDIRECT ||
-            _currentInteractive.type == Interactive.InteractiveType.INTERACT_ONCE)
+            _currentInteractive.type == Interactive.InteractiveType.INTERACT_MONUMENT ||
+            _currentInteractive.type == Interactive.InteractiveType.INTERACT_GRAVE)
         {
             canvasManager.ShowInteractionPanel(_currentInteractive.inventoryName);
         }
@@ -108,6 +110,12 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (_hasRequirements)
         {
+            Debug.Log("GET IN");
+            if (_currentInteractive.type == Interactive.InteractiveType.INTERACT_GRAVE)
+            {
+                foreach (GameObject o in objects)
+                    o.SetActive(true);
+            }
             for (int i = 0; i < _currentInteractive.inventoryRequirements.Length; ++i)
                 RemoveFromInventory(_currentInteractive.inventoryRequirements[i]);
 
@@ -132,5 +140,4 @@ public class PlayerInteractions : MonoBehaviour
     {
         return _inventory.Contains(item);
     }
-
 }
