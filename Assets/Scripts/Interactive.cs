@@ -2,7 +2,7 @@
 
 public class Interactive : MonoBehaviour
 {
-    public enum InteractiveType { PICKABLE, INTERACT_ONCE, INTERACT_MULTIPLE, INDIRECT };
+    public enum InteractiveType { PICKABLE, INTERACT_GRAVE, INTERACT_MONUMENT, INTERACT_MULTIPLE, INDIRECT };
     public PlayerInteractions interaction;
     public bool             isActive;
     public InteractiveType  type;
@@ -14,16 +14,13 @@ public class Interactive : MonoBehaviour
     public Interactive[]    interactionChain;
     public int presentOrder;
     Renderer rend;
-    private int[] order;
     public bool GotAmulet { get; private set; }
-    //public int TryOrder { get; private set; }
 
     private Animator _animator;
 
     public void Start()
     {
         rend = GetComponent<Renderer>();
-        order = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
         GotAmulet = false;
         _animator = GetComponent<Animator>();
     }
@@ -42,14 +39,18 @@ public class Interactive : MonoBehaviour
         {
             ProcessActivationChain();
             ProcessInteractionChain();
-
-            if (type == InteractiveType.INTERACT_ONCE && interaction.TryOrder == presentOrder)
+            
+            // First puzzle
+            if (type == InteractiveType.INTERACT_MONUMENT && interaction.TryOrder == presentOrder)
             {
                 rend.material.SetColor("_Color", Color.blue);
                 interaction.TryOrder += 1;
                 if (presentOrder > 6) GotAmulet = true;
                 interaction.ConfirmAmulet = GotAmulet;
             }
+
+            // Second puzzle
+
         }
     }
 
