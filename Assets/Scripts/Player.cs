@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private float moveZ;
     private Vector3 move;
 
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -90,4 +91,5 @@ public class Player : MonoBehaviour
             dialogue.StartDialogue();
         }
     }
+
 }
