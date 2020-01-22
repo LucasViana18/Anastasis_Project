@@ -16,6 +16,9 @@ public class PlayerInteractions : MonoBehaviour
     private bool                _hasRequirements;
     private List<Interactive>   _inventory;
 
+    [SerializeField] private Player player;
+    [SerializeField] private GameObject spinPanel;
+
     public void Start()
     {
         _cameraTransform    = GetComponentInChildren<Camera>().transform;
@@ -91,7 +94,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void CheckForInteraction()
     {
-        if (Input.GetMouseButtonDown(0) && _currentInteractive != null)
+        if (Input.GetKeyDown(KeyCode.X) && _currentInteractive != null)
         {
             if (_currentInteractive.type == Interactive.InteractiveType.PICKABLE)
                 Pick();
@@ -102,6 +105,8 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Pick()
     {
+        player.enabled = true;
+        spinPanel.SetActive(false);
         AddToInventory(_currentInteractive);
         _currentInteractive.gameObject.SetActive(false);
     }
