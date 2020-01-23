@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
 
             s.Source.volume = s.Volume;
         }
+
+        Play("First Dialog");
     }
 
     public void Play(string name)

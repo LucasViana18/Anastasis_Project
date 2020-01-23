@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour, IInteractable, IPromoteDialogue
+public class Item : MonoBehaviour
 {
-    private ParticleSystem myParticles;
+    [SerializeField] private ParticleSystem myParticles;
 
     private void Awake()
     {
-        myParticles = GetComponent<ParticleSystem>();
         myParticles.Stop();
     }
 
@@ -18,15 +17,5 @@ public class Item : MonoBehaviour, IInteractable, IPromoteDialogue
             myParticles.Play();
         else if (!inRange && myParticles.isPlaying)
             myParticles.Stop();
-    }
-
-    public string Interact()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public string PromoteDialogue()
-    {
-        throw new System.NotImplementedException();
     }
 }

@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     // Instance variables
-        //Character movement
+    //Character movement
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private LayerMask checkMask;
@@ -15,15 +14,17 @@ public class Player : MonoBehaviour
     [SerializeField] private Dialogue dialogue;
 
     private float defaultRayDistance;
-
+    private LanternColor lanternColor;
+    private float baseMoveSpeed;
+    private float moveSpeedLight;
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
     private Transform camera;
-        //Character mechanics
+    //Character mechanics
     private LampLight lampLight;
     private IntangibleForm intangibleForm;
-        //Input variables
+    //Input variables
     private float moveX;
     private float moveZ;
     private Vector3 move;
@@ -43,6 +44,9 @@ public class Player : MonoBehaviour
     private void Start()
     {
         defaultRayDistance = rayDistance;
+        lanternColor = LanternColor.orange;
+        baseMoveSpeed = moveSpeed;
+        moveSpeedLight = moveSpeed / 2;
     }
 
     private void FixedUpdate()
@@ -73,16 +77,45 @@ public class Player : MonoBehaviour
 
         //Lamp Light input
         if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (lanternColor == LanternColor.green)
+            {
+                moveSpeed = baseMoveSpeed;
+                lanternColor = LanternColor.orange;
+            }
+            else
+            {
+                moveSpeed = moveSpeedLight;
+                lanternColor = LanternColor.green;
+            }
+
             lampLight.ChangeLight();
+        }
         //Intangible Form input
         if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (lanternColor == LanternColor.blue)
+            {
+                moveSpeed = baseMoveSpeed;
+                lanternColor = LanternColor.orange;
+            }
+            else
+            {
+                moveSpeed = moveSpeedLight;
+                lanternColor = LanternColor.blue;
+            }
+        
             intangibleForm.ChangeForm();
+        }
 
         if (Input.GetMouseButtonDown(1))
             DoAction();
 
-        if (moveX != 0 || moveZ != 0)
-            audio.Play("Walking");
+        //if (moveX != 0 || moveZ != 0)
+        //  audio.Play("Walking");
+
+        if (Input.GetKeyDown(KeyCode.P))
+            SceneManager.LoadScene(0);
     }
 
     private void DoAction()

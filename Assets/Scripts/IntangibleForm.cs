@@ -22,6 +22,11 @@ public class IntangibleForm : MonoBehaviour
         Physics.IgnoreLayerCollision(ignoredLayers[0], ignoredLayers[1]);
     }
 
+    private void Update()
+    {
+        
+    }
+
     public void ChangeForm()
     {
         //Change Lantern color and player's layer

@@ -3,7 +3,7 @@
 public class Interactive : MonoBehaviour
 {
     public enum InteractiveType { PICKABLE, INTERACT_GRAVE, INTERACT_MONUMENT, INTERACT_MULTIPLE, INDIRECT };
-    public PlayerInteractions interaction;
+    private PlayerInteractions interaction;
     public bool             isActive;
     public InteractiveType  type;
     public string           inventoryName;
@@ -23,6 +23,7 @@ public class Interactive : MonoBehaviour
         rend = GetComponent<Renderer>();
         GotAmulet = false;
         _animator = GetComponent<Animator>();
+        interaction = FindObjectOfType<PlayerInteractions>();
     }
 
     public void Activate()
@@ -43,9 +44,9 @@ public class Interactive : MonoBehaviour
             // First puzzle
             if (type == InteractiveType.INTERACT_MONUMENT && interaction.TryOrder == presentOrder)
             {
-                rend.material.SetColor("_Color", Color.blue);
+                rend.material.SetColor("_Color", Color.red);
                 interaction.TryOrder += 1;
-                if (presentOrder > 6) GotAmulet = true;
+                if (presentOrder > 3) GotAmulet = true;
                 interaction.ConfirmAmulet = GotAmulet;
             }
 
