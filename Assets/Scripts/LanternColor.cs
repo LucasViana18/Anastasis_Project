@@ -1,0 +1,1 @@
+﻿public enum LanternColor { orange, blue, green}

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    private const float     MAX_INTERACTION_DISTANCE    = 5f;
+    private const float     MAX_INTERACTION_DISTANCE    = 10f;
     //private const string    PICK_UP_MESSAGE             = "Pick up ";
     public int TryOrder { get; set; }
     public bool ConfirmAmulet { get; set; }
@@ -35,7 +35,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void CheckForInteractive()
     {
-        if (Physics.Raycast(_cameraTransform.position, 
+        if (Physics.Raycast(_cameraTransform.position,
                             _cameraTransform.forward,
                             out RaycastHit hitInfo,
                             MAX_INTERACTION_DISTANCE))
@@ -54,7 +54,8 @@ public class PlayerInteractions : MonoBehaviour
     private void SetCurrentInteractive(Interactive newInteractive)
     {
         _currentInteractive = newInteractive;
-
+        if (_currentInteractive.type == Interactive.InteractiveType.INDIRECT)
+            FindObjectOfType<AudioManager>().Play("Chapel");
         if (_currentInteractive.type == Interactive.InteractiveType.PICKABLE || 
             _currentInteractive.type == Interactive.InteractiveType.INDIRECT ||
             _currentInteractive.type == Interactive.InteractiveType.INTERACT_MONUMENT ||
