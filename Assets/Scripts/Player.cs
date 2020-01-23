@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Has main control of the player
+/// </summary>
 public class Player : MonoBehaviour
 {
     // Instance variables
-    //Character movement
+    // Character movement
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private LayerMask checkMask;
@@ -31,6 +34,9 @@ public class Player : MonoBehaviour
 
     private AudioManager audio;
 
+    /// <summary>
+    /// Awake - first call
+    /// </summary>
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -41,6 +47,9 @@ public class Player : MonoBehaviour
         audio = FindObjectOfType<AudioManager>();
     }
 
+    /// <summary>
+    /// Start - first call after Awake
+    /// </summary>
     private void Start()
     {
         defaultRayDistance = rayDistance;
@@ -49,6 +58,9 @@ public class Player : MonoBehaviour
         moveSpeedLight = moveSpeed / 2;
     }
 
+    /// <summary>
+    /// FixedUpdate - updates every frame for physics
+    /// </summary>
     private void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(checkBody.position, checkRadius, checkMask);
@@ -66,13 +78,16 @@ public class Player : MonoBehaviour
         controller.Move(((Vector3.ClampMagnitude(move, 1f) * moveSpeed) + velocity) * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Update - updates every frame
+    /// </summary>
     private void Update()
     {
         // Movement input
         moveX = Input.GetAxis("Horizontal");
         moveZ = Input.GetAxis("Vertical");
 
-        if (!dialogue.isDialogue)
+        if (!dialogue.IsDialogue)
             rayDistance = defaultRayDistance;
 
         //Lamp Light input
@@ -111,13 +126,13 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
             DoAction();
 
-        //if (moveX != 0 || moveZ != 0)
-        //  audio.Play("Walking");
-
         if (Input.GetKeyDown(KeyCode.P))
             SceneManager.LoadScene(0);
     }
 
+    /// <summary>
+    /// Interact with objects for dialog
+    /// </summary>
     private void DoAction()
     {
         Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, rayDistance);

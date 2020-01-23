@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Script that implements the intangible form mechanic
+/// </summary>
 public class IntangibleForm : MonoBehaviour
 {
     //Instance Variables
@@ -13,6 +14,9 @@ public class IntangibleForm : MonoBehaviour
     private Color blueColor;
     private Color regularColor;
 
+    /// <summary>
+    /// Awake - first call
+    /// </summary>
     private void Awake()
     {
         //Set colors based on given HEX value
@@ -22,11 +26,9 @@ public class IntangibleForm : MonoBehaviour
         Physics.IgnoreLayerCollision(ignoredLayers[0], ignoredLayers[1]);
     }
 
-    private void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Changes the form of the light
+    /// </summary>
     public void ChangeForm()
     {
         //Change Lantern color and player's layer

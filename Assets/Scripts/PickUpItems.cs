@@ -1,16 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Script that takes care of pick up items
+/// </summary>
 public class PickUpItems : MonoBehaviour
 {
-
+    // Instance variables
     [SerializeField] private Transform Destination;
     private Vector3 postLastFame;
     [SerializeField] private Player player;
     [SerializeField] private GameObject spinPanel;
     [SerializeField] private Transform camera;
 
+    /// <summary>
+    /// Update - updates every frame
+    /// </summary>
     private void Update()
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, 4f))
@@ -20,8 +24,8 @@ public class PickUpItems : MonoBehaviour
                 spinPanel.SetActive(true);
                 player.enabled = false;
                 GetComponent<Rigidbody>().useGravity = false;
-                this.transform.position = Destination.position;
-                this.transform.parent = GameObject.Find("Destination").transform;
+                transform.position = Destination.position;
+                transform.parent = GameObject.Find("Destination").transform;
             }
 
             if (Input.GetMouseButton(1))

@@ -1,21 +1,25 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Script that manages the dialogue
+/// </summary>
 public class Dialogue : MonoBehaviour
 {
+    // Instance variables
     [SerializeField] private GameObject dialogPanel;
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField] private string[] sentences;
     [SerializeField] private float typingSpeed;
     [SerializeField] private Player player;
     [SerializeField] private CameraMovement cameraMove;
-
-    public bool isDialogue { get; private set; }
-
+    public bool IsDialogue { get; private set; }
     private int index;
 
+    /// <summary>
+    /// Update - updates every frame
+    /// </summary>
     private void Update()
     {
         //if (dialogText.text == sentences[index]) 
@@ -23,15 +27,22 @@ public class Dialogue : MonoBehaviour
             NextPhrase();
     }
 
+    /// <summary>
+    /// Starts the ceratin dialogue
+    /// </summary>
     public void StartDialogue()
     {
-        isDialogue = true;
+        IsDialogue = true;
         player.enabled = false;
         cameraMove.enabled = false;
         ShowDialogPanel();
         StartCoroutine(CharPerSentence());
     }
 
+    /// <summary>
+    /// Goes through each character on the sentences
+    /// </summary>
+    /// <returns>Each char</returns>
     IEnumerator CharPerSentence()
     {
         foreach(char letter in sentences[index].ToCharArray())
@@ -41,6 +52,9 @@ public class Dialogue : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Goes to the next sentence
+    /// </summary>
     private void NextPhrase()
     {
         if (index < sentences.Length - 1)
@@ -56,10 +70,13 @@ public class Dialogue : MonoBehaviour
             dialogPanel.SetActive(false);
             player.enabled = true;
             cameraMove.enabled = true;
-            isDialogue = false;
+            IsDialogue = false;
         }
     }
 
+    /// <summary>
+    /// Shows the dialog panel
+    /// </summary>
     private void ShowDialogPanel()
     {
         dialogPanel.SetActive(true);

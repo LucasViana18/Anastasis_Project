@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Script that takes care of the camera movement
+/// </summary>
 public class CameraMovement : MonoBehaviour
 {
     // Instance variables
@@ -9,12 +10,18 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Transform body;
     private float verticalRotation = 0f;
 
+    /// <summary>
+    /// Start - first call after Awake
+    /// </summary>
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    /// <summary>
+    /// Update - updates every frame
+    /// </summary>
     private void Update()
     {
         // Local variables

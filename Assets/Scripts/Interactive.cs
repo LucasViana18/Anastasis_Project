@@ -1,23 +1,38 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Turns an object interactive for the player
+/// </summary>
 public class Interactive : MonoBehaviour
 {
+    // Instance variables
+        // Interactive enum
     public enum InteractiveType { PICKABLE, INTERACT_GRAVE, INTERACT_MONUMENT, INTERACT_MULTIPLE, INDIRECT };
     private PlayerInteractions interaction;
-    public bool             isActive;
-    public InteractiveType  type;
-    public string           inventoryName;
-    public string           requirementText;
-    public string           interactionText;
-    public Interactive[]    inventoryRequirements;
-    public Interactive[]    activationChain;
-    public Interactive[]    interactionChain;
-    public int presentOrder;
-    Renderer rend;
+    private bool             isActive;
+    [SerializeField] private InteractiveType  type;
+    public InteractiveType Type { get => type; }
+    [SerializeField] private string           inventoryName;
+    public string InventoryName { get => inventoryName; }
+    [SerializeField] private string           requirementText;
+    public string RequirementText { get => requirementText; }
+    [SerializeField] private string           interactionText;
+    public string InteractionText { get => interactionText; }
+    [SerializeField] private Interactive[]    inventoryRequirements;
+    public Interactive[] InventoryRequirements { get => inventoryRequirements; }
+    [SerializeField] private Interactive[]    activationChain;
+    public Interactive[] ActivationChain { get => activationChain; }
+    [SerializeField] private Interactive[]    interactionChain;
+    public Interactive[] InteractionChain { get => interactionChain; }
+    [SerializeField] private int presentOrder;
+    private Renderer rend;
     public bool GotAmulet { get; private set; }
 
     private Animator _animator;
 
+    /// <summary>
+    /// Start - first call after Awake
+    /// </summary>
     public void Start()
     {
         rend = GetComponent<Renderer>();
@@ -26,11 +41,17 @@ public class Interactive : MonoBehaviour
         interaction = FindObjectOfType<PlayerInteractions>();
     }
 
+    /// <summary>
+    /// Put the isActive variable true
+    /// </summary>
     public void Activate()
     {
         isActive = true;
     }
 
+    /// <summary>
+    /// Action of objects when interacted
+    /// </summary>
     public void Interact()
     {
         if (_animator != null)
@@ -41,7 +62,7 @@ public class Interactive : MonoBehaviour
             ProcessActivationChain();
             ProcessInteractionChain();
             
-            // First puzzle
+            // Puzzle
             if (type == InteractiveType.INTERACT_MONUMENT && interaction.TryOrder == presentOrder)
             {
                 rend.material.SetColor("_Color", Color.red);
@@ -49,12 +70,12 @@ public class Interactive : MonoBehaviour
                 if (presentOrder > 3) GotAmulet = true;
                 interaction.ConfirmAmulet = GotAmulet;
             }
-
-            // Second puzzle
-
         }
     }
 
+    /// <summary>
+    /// Case it has an array of objects, it activates all of them
+    /// </summary>
     private void ProcessActivationChain()
     {
         if (activationChain != null)
@@ -64,6 +85,9 @@ public class Interactive : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Case it has an array of objects, every object is interacted with
+    /// </summary>
     private void ProcessInteractionChain()
     {
         if (interactionChain != null)

@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Script that controls the light behaviour
+/// </summary>
 public class LampLight : MonoBehaviour
 {
     //Instance Variables
@@ -12,6 +13,9 @@ public class LampLight : MonoBehaviour
     private Color greenColor;
     private Color regularColor;
 
+    /// <summary>
+    /// Awake - first call
+    /// </summary>
     private void Awake()
     {
         //Set colors based on given HEX value
@@ -19,6 +23,9 @@ public class LampLight : MonoBehaviour
         ColorUtility.TryParseHtmlString(greenLight, out greenColor);
     }
 
+    /// <summary>
+    /// Changes the light of the flame
+    /// </summary>
     public void ChangeLight()
     {
         //Reset player's layer
@@ -41,6 +48,10 @@ public class LampLight : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// When close, the object glows
+    /// </summary>
+    /// <param name="obj">the certain object</param>
     private void OnTriggerStay(Collider obj)
     {
 
@@ -54,6 +65,11 @@ public class LampLight : MonoBehaviour
             obj?.gameObject?.GetComponent<Item>()?.Glow(false);
         }
     }
+
+    /// <summary>
+    /// When far enough, the object doesn't glow
+    /// </summary>
+    /// <param name="obj">the certain object</param>
     private void OnTriggerExit(Collider obj)
     {
         if (obj.CompareTag("Interactable"))

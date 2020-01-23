@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{C1EC5B00-0348-E04A-B965-578A2EEF87AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -69,10 +70,8 @@
     <Compile Include="Assets\Scripts\CollisionTree.cs" />
     <Compile Include="Assets\Scripts\CollisionTreeAfter.cs" />
     <Compile Include="Assets\Scripts\Dialogue.cs" />
-    <Compile Include="Assets\Scripts\IInteractable.cs" />
     <Compile Include="Assets\Scripts\IntangibleForm.cs" />
     <Compile Include="Assets\Scripts\Interactive.cs" />
-    <Compile Include="Assets\Scripts\IPromoteDialogue.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\LampLight.cs" />
     <Compile Include="Assets\Scripts\LanternColor.cs" />
