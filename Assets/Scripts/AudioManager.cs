@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
-using UnityEngine.Audio;
 using System;
 
+/// <summary>
+/// Manages the audio in the game
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
+    // Instance variables
     [SerializeField] private Sound[] sounds;
+
+    /// <summary>
+    /// Start - first call after Awake
+    /// </summary>
     private void Start()
     {
         // Goes through every clip and adds to the new audio source
@@ -16,9 +23,14 @@ public class AudioManager : MonoBehaviour
             s.Source.volume = s.Volume;
         }
 
+        // Plays the first dialog of the game
         Play("First Dialog");
     }
 
+    /// <summary>
+    /// The play button for certain sound
+    /// </summary>
+    /// <param name="name">sound name</param>
     public void Play(string name)
     {
         //Plays the sound

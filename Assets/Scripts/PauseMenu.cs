@@ -1,14 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages the pause menu
+/// </summary>
 public class PauseMenu : MonoBehaviour
 {
+    // Instance variables
     public static bool GamePaused = false;
 
     public GameObject pauseMenu;
-    // Update is called once per frame
+
+    /// <summary>
+    /// Update - updates every frame
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -23,6 +28,10 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Resumes the game
+    /// </summary>
     public void Resume()
     {
         pauseMenu.SetActive(false);
@@ -31,6 +40,10 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
+    /// <summary>
+    /// Pause the game
+    /// </summary>
     private void Pause()
     {
         pauseMenu.SetActive(true);
@@ -40,12 +53,18 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    /// <summary>
+    /// Load the scene Menu
+    /// </summary>
     public void LoadMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
+    /// <summary>
+    /// Quit the game
+    /// </summary>
     public void QuitGAme()
     {
         Application.Quit();
