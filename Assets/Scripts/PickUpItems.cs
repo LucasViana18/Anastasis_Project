@@ -10,12 +10,6 @@ public class PickUpItems : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private GameObject spinPanel;
     [SerializeField] private Transform camera;
-    private AudioManager audio;
-
-    public void Awake()
-    {
-        audio = FindObjectOfType<AudioManager>();
-    }
 
     private void Update()
     {
@@ -23,7 +17,6 @@ public class PickUpItems : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                audio.Play("Som");
                 spinPanel.SetActive(true);
                 player.enabled = false;
                 GetComponent<Rigidbody>().useGravity = false;
