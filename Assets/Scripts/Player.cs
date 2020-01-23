@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private float moveZ;
     private Vector3 move;
 
+    private AudioManager audio;
 
     private void Awake()
     {
@@ -35,6 +36,8 @@ public class Player : MonoBehaviour
         lampLight = GetComponent<LampLight>();
         intangibleForm = GetComponent<IntangibleForm>();
         camera = GetComponentInChildren<Camera>().transform;
+
+        audio = FindObjectOfType<AudioManager>();
     }
 
     private void Start()
@@ -77,6 +80,9 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
             DoAction();
+
+        if (moveX != 0 || moveZ != 0)
+            audio.Play("Walking");
     }
 
     private void DoAction()
